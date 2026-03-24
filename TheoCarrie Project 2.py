@@ -41,7 +41,7 @@ def fire():
     a = 2
     print(element[a]+"! Exellent choice, aggressive ""Scorch 'n burn"" playstyle, sure to incinerate the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Scorch \nDMG: 40\nBURN: Target takes 10 DMG for 2 turns \n")
-    print("Firewall \nDMG: 20\nCOVERING FIRE: Negates 80% DMG taken next turn \n")
+    print("Firewall \nDMG: 20\nCOVER FIRE: Negates 80% DMG taken next turn \n")
     print("Phoenix \nDMG: 70\nBURN: Heal 50% DMG dealt \n")
     loading()
 
