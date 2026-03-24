@@ -4,6 +4,8 @@ import random
 from random import choice 
 water = Element(name = "Water", health = 100)
 fire = Element(name = "Fire", health = 100)
+air = Element(name = "Air", health = 90)
+earth = Element(name = "Earth", health = 120)
 splosh = Action("Splosh", 40, "Wet")
 waterfall = Action("Waterfall", 45, "Churning Rapids")
 tsunami = Action("Tsunami", 55, "Mud")
@@ -87,13 +89,14 @@ def gameplay():
     
      print("It's your turn to attack! Choose a move!")
      if elsel == "Water":
-         moveselw = input(f"1 -- {splosh.name} \n2 -- {waterfall.name} \n3 -- {tsunami.name} \n")
+         movesel = input(f"1 -- {splosh.name} \n2 -- {waterfall.name} \n3 -- {tsunami.name} \n")
+        
      elif elsel == "Fire":
-         moveself = input(f"1 -- {scorch.name} \n2 -- {firewall.name} \n3 -- {phoenix.name} \n")
+         movesel = input(f"1 -- {scorch.name} \n2 -- {firewall.name} \n3 -- {phoenix.name} \n")
      elif elsel == "Earth":
-         movesela = input(f"1 -- {crunch.name} \n2 -- {meteor.name} \n3 -- {fortress.name} \n")
+         movesel = input(f"1 -- {crunch.name} \n2 -- {meteor.name} \n3 -- {fortress.name} \n")
      elif elsel == "Air":
-         movesele = input(f"1 -- {swoosh.name} \n2 -- {aslice.name} \n3 -- {cyclone.name} \n")
+         movesel = input(f"1 -- {swoosh.name} \n2 -- {aslice.name} \n3 -- {cyclone.name} \n")
 
 
 
