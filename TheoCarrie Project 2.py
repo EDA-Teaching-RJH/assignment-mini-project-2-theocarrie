@@ -16,6 +16,7 @@ def main():
 def elselect():    
     print("Welcome to Elemenbrawl: choose your element: \n")
     element = input ("-Water \n-Fire \n-Earth \n-Air \n")
+    element = element.title()
     if element == "Water":
         water()
     elif element == "Fire":
@@ -61,12 +62,15 @@ def air():
     print("Cyclone \nDMG: 40\nDIVINE WIND: 40% chance to dodge, 30% chance to do 1.5X DMG \n ")
     loading()
 
-def gameplay():
-    print("An ENEMY has appeared!")
-    a = n
-    oHP = 150
-    mHP = 200
-    attack = input("Its your turn to attack!\n", action1[n]"\n", action2[n]"\n", action3[]"\n")
+#def gameplay():
+     #print("An ENEMY has appeared!")
+     #a = n
+     #oHP = 150
+     #mHP = 200
+     #attack = input("Its your turn to attack!\n", action1[n]"\n", action2[n]"\n", action3[]"\n")
+
+     #turn = 1
+     #turn = turn + 1 
 
 
 
@@ -74,7 +78,8 @@ def gameplay():
 
 def loading():
     yn = input("Do you wish to continue? Y/N\n")
-    if yn == "Y":
+    yn = yn.title()
+    if yn == "Y" :
         print("LOADING GAME...")
         gameplay()
     elif yn == "N":
