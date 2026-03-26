@@ -1,35 +1,10 @@
-from element import Element 
+from element import FireElement, WaterElement, AirElement, EarthElement 
 from action import Action
 import random
+import re
+import csv
 from random import choice 
 
-
-
-
-myelwater = Element(name = "Water", health = 100)
-myelfire = Element(name = "Fire", health = 100)
-myelair = Element(name = "Air", health = 90)
-myelearth = Element(name = "Earth", health = 120)
-oppwater = Element(name = "Water", health = 90)
-oppfire = Element(name = "Fire", health = 90)
-oppair = Element(name = "Air", health = 80)
-oppearth = Element(name = "Earth", health = 110)
-
-
-
-
-splosh = Action("Splosh", 40, "Wet")
-waterfall = Action("Waterfall", 45, "Churning Rapids")
-tsunami = Action("Tsunami", 55, "Mud")
-scorch = Action("Scorch", 40, "Burn")
-firewall = Action("Firewall", 20, "Cover Fire")
-phoenix = Action("Phoenix", 70, "Burn")
-crunch = Action("Crunch", 50, "")
-meteor = Action("Meteor", 60, "Extinction")
-fortress = Action("Fortress", 0, "Last Stand")
-swoosh = Action("Swoosh", 35, "Dodge")
-aslice = Action("Slice", 55, "Critical")
-cyclone = Action("Cyclone", 40, "Divine Wind")
 
 
 global opp
@@ -77,43 +52,43 @@ def elselect():
 
 def water():
     global myel
-    myel = Element(name = "Water", health = 100)
+    myel = WaterElement()
     print("Water! Good choice, balanced and life sustaining, sure to wash away the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Splosh \nDMG: 40\nWET: Target deals -20% DMG next turn\n")
     print("Waterfall \nDMG: 45\nCHURNING RAPIDS: Target takes +20% DMG next turn\n")
     print("Tsunami \nDMG: 55\nMUD: Target 55% Chance to miss next attack\n")
-    print("HP", {myelwater.health})
+    print("HP", {myel.health})
     loading()
 
 def fire():
     global myel
-    myel = Element(name = "Fire", health = 100)
+    myel = FireElement()
     print("Fire! Exellent choice, aggressive ""Scorch 'n burn"" playstyle, sure to incinerate the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Scorch \nDMG: 40\nBURN: Target takes 10 DMG for 2 turns \n")
     print("Firewall \nDMG: 20\nCOVERING FIRE: Negates 80% DMG taken next turn \n")
     print("Phoenix \nDMG: 70\nBURN: Heal 50% DMG dealt \n")
-    print("HP", {myelfire.health})
+    print("HP", {myel.health})
     loading()
 
 def earth():
     global myel
-    myel = Element(name = "Earth", health = 120)
+    myel = EarthElement()
     print("Earth! Wise choice, sturdy and immovable, sure to crush the competition to dust! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Crunch \nDMG: 50 \n")
     print("Meteor \nDMG: 60\nEXTINCTION: 35% chance to stun target, skipping their turn \n")
     print("Fortress \nDMG: 0\nLAST STAND: Takes 95% reduced DMG for 1 turn and 55% reduced DMG for 1 turn after \n")
-    print("HP", {myelearth.health})
+    print("HP", {myel.health})
     loading()
 
 
 def air():
     global myel
-    myel = Element(name = "Air", health = 90)
+    myel = AirElement()
     print("Air! Exciting choice, fast and agile, sure to fly above the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Swoosh \nDMG: 35\nDODGE: 35% chance to evade next attack \n")
     print("Slice \nDMG: 55\nCRITICAL: 25% chance to do 2X DMG \n")
     print("Cyclone \nDMG: 40\nDIVINE WIND: 40% chance to dodge, 30% chance to do 1.5X DMG \n ")
-    print("HP", {myelair.health})
+    print("HP", {myel.health})
     loading()
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -127,25 +102,25 @@ def gameplay():
      if opel == "Fire":
          
          print("ENEMY element is FIRE, beware")
-         opp = oppfire
+         opp = FireElement()
          print(f"ENEMY HP: {opp.health_max}")
          fight()
      elif opel == "Water":
          
          print("ENEMY element is WATER, beware")
-         opp = oppwater
+         opp = WaterElement()
          print(f"ENEMY HP: {opp.health_max}")
          fight()
      elif opel == "Air":
          
          print("ENEMY element is AIR, beware")
-         opp = oppair
+         opp = AirElement()
          print(f"ENEMY HP: {opp.health_max}")
          fight()
      elif opel == "Earth":
          
          print("ENEMY element is EARTH, beware")
-         opp = oppearth
+         opp = EarthElement()
          print(f"ENEMY HP: {opp.health_max}")
          fightloop()
     
@@ -170,26 +145,26 @@ def fight():
          
          
       
-         myel = myelfire
+         myel = FireElement()
          print(f"HP:", {myel.health_max})
         
      elif elsel == "Water":
          
          
       
-         myel = myelwater
+         myel = WaterElement()
          print(f"HP:", {myel.health_max})
        
      elif elsel == "Air":
          
      
-         myel = myelair
+         myel = AirElement()
          print(f"HP:", {myel.health_max})
         
          
      elif elsel == "Earth":
          
-         myel = myelearth
+         myel = EarthElement()
          print(f"HP:", {myel.health_max})
         
          
@@ -200,38 +175,38 @@ def fight():
     
      
      
-     if opel == "Fire":
+    #  if opel == "Fire":
          
          
-         splosh.damage *= 1.5
-         waterfall.damage *= 1.5
-         tsunami.damage *= 1.5
-         opp = oppfire
+    #      splosh.damage *= 1.5
+    #      waterfall.damage *= 1.5
+    #      tsunami.damage *= 1.5
+    #      opp = oppfire
         
-     elif opel == "Water":
+    #  elif opel == "Water":
          
          
-         crunch.damage *= 1.5
-         meteor.damage *= 1.5
-         fortress.damage *= 1.5
-         opp = oppwater
+    #      crunch.damage *= 1.5
+    #      meteor.damage *= 1.5
+    #      fortress.damage *= 1.5
+    #      opp = oppwater
        
-     elif opel == "Air":
+    #  elif opel == "Air":
          
          
-         scorch.damage *= 1.5
-         firewall.damage *= 1.5
-         phoenix.damage *= 1.5
-         opp = oppair
+    #      scorch.damage *= 1.5
+    #      firewall.damage *= 1.5
+    #      phoenix.damage *= 1.5
+    #      opp = oppair
         
          
-     elif opel == "Earth":
+    #  elif opel == "Earth":
          
         
-         swoosh.damage *= 1.5
-         aslice.damage *= 1.5
-         cyclone.damage *= 1.5 
-         opp = oppearth
+    #      swoosh.damage *= 1.5
+    #      aslice.damage *= 1.5
+    #      cyclone.damage *= 1.5 
+    #      opp = oppearth
         
          
     
