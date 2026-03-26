@@ -10,7 +10,7 @@ class Element:
 
         for effect in self.status:
             if effect["type"] == "shield":
-                print(f"{self.name}'s shield blocks some damage!")
+                print(f"{self.name}'s shield is ready!")
                 dmg *= 0.5
 
         for effect in self.status:
@@ -50,7 +50,7 @@ class Element:
 
 class WaterElement(Element):
     def __init__(self):
-        super().__init__("Water", 100)
+        super().__init__("Water", 500)
         self.actions = {
             "1": ("Splosh", 40, self.splosh),
             "2": ("Waterfall", 45, self.waterfall),
@@ -71,7 +71,7 @@ class WaterElement(Element):
 
 class AirElement(Element):
     def __init__(self):
-        super().__init__("Air", 90)
+        super().__init__("Air", 450)
         self.actions = {
             "1": ("Swoosh", 35, self.swoosh),
             "2": ("Slice", 55, self.slice),
@@ -96,7 +96,7 @@ class AirElement(Element):
 
 class EarthElement(Element):
     def __init__(self):
-        super().__init__("Earth", 120)
+        super().__init__("Earth", 600)
         self.actions = {
             "1": ("Crunch", 50, self.crunch),
             "2": ("Meteor", 60, self.meteor),
@@ -119,7 +119,7 @@ class EarthElement(Element):
 
 class FireElement(Element):
     def __init__(self): 
-        super().__init__("Fire", 100)
+        super().__init__("Fire", 450)
         self.actions = {
             "1": ("Scorch", 40, self.scorch),
             "2": ("Firewall", 20, self.firewall),

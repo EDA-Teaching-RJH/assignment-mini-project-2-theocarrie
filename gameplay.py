@@ -146,6 +146,9 @@ def fight():
      myel.apply_status()
      opp.apply_status()
 
+     if opp.health <= 0:
+         return
+
      if myel.is_stunned():
         print("You are stunned")
      else:
