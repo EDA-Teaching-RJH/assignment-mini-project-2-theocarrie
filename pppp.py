@@ -23,7 +23,7 @@ aslice = Action("Slice", 55, "Critical")
 cyclone = Action("Cyclone", 40, "Divine Wind")
 global theotest
 def main():
-    theotest = fire 
+    theotest = earth 
     print("HP:", {theotest.health})
 
 
