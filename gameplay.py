@@ -2,6 +2,10 @@ from element import Element
 from action import Action
 import random
 from random import choice 
+
+
+
+
 myelwater = Element(name = "Water", health = 100)
 myelfire = Element(name = "Fire", health = 100)
 myelair = Element(name = "Air", health = 90)
@@ -10,6 +14,10 @@ oppwater = Element(name = "Water", health = 90)
 oppfire = Element(name = "Fire", health = 90)
 oppair = Element(name = "Air", health = 80)
 oppearth = Element(name = "Earth", health = 110)
+
+
+
+
 splosh = Action("Splosh", 40, "Wet")
 waterfall = Action("Waterfall", 45, "Churning Rapids")
 tsunami = Action("Tsunami", 55, "Mud")
@@ -22,13 +30,17 @@ fortress = Action("Fortress", 0, "Last Stand")
 swoosh = Action("Swoosh", 35, "Dodge")
 aslice = Action("Slice", 55, "Critical")
 cyclone = Action("Cyclone", 40, "Divine Wind")
+
+
 global opp
 global myel
 
 print("LOADING...")
 print("...")
 
-
+#----------------------------------------------------------------------------------------------------------------------
+# Element Selection
+#----------------------------------------------------------------------------------------------------------------------
 
 def main():
 
@@ -39,8 +51,8 @@ def elselect():
     print("Welcome to Elemenbrawl: choose your element: \n")
     global elsel
     
-    elsel = input ("-Water \n-Fire \n-Earth \n-Air \n")
-    elsel = elsel.title()
+    elsel = input ("-Water \n-Fire \n-Earth \n-Air \n").strip().title()
+   
     
     if elsel == "Water":
         
@@ -64,7 +76,8 @@ def elselect():
         elselect()
 
 def water():
-    myelwater = Element(name = "Water", health = 100)
+    global myel
+    myel = Element(name = "Water", health = 100)
     print("Water! Good choice, balanced and life sustaining, sure to wash away the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Splosh \nDMG: 40\nWET: Target deals -20% DMG next turn\n")
     print("Waterfall \nDMG: 45\nCHURNING RAPIDS: Target takes +20% DMG next turn\n")
@@ -73,7 +86,8 @@ def water():
     loading()
 
 def fire():
-    myelfire = Element(name = "Fire", health = 100)
+    global myel
+    myel = Element(name = "Fire", health = 100)
     print("Fire! Exellent choice, aggressive ""Scorch 'n burn"" playstyle, sure to incinerate the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Scorch \nDMG: 40\nBURN: Target takes 10 DMG for 2 turns \n")
     print("Firewall \nDMG: 20\nCOVERING FIRE: Negates 80% DMG taken next turn \n")
@@ -82,7 +96,8 @@ def fire():
     loading()
 
 def earth():
-    myelearth = Element(name = "Earth", health = 120)
+    global myel
+    myel = Element(name = "Earth", health = 120)
     print("Earth! Wise choice, sturdy and immovable, sure to crush the competition to dust! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Crunch \nDMG: 50 \n")
     print("Meteor \nDMG: 60\nEXTINCTION: 35% chance to stun target, skipping their turn \n")
@@ -92,7 +107,8 @@ def earth():
 
 
 def air():
-    myelair = Element(name = "Air", health = 90)
+    global myel
+    myel = Element(name = "Air", health = 90)
     print("Air! Exciting choice, fast and agile, sure to fly above the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
     print("Swoosh \nDMG: 35\nDODGE: 35% chance to evade next attack \n")
     print("Slice \nDMG: 55\nCRITICAL: 25% chance to do 2X DMG \n")
@@ -100,6 +116,9 @@ def air():
     print("HP", {myelair.health})
     loading()
 
+#----------------------------------------------------------------------------------------------------------------------
+# Gameplay
+#----------------------------------------------------------------------------------------------------------------------
 
 def gameplay():
      print("An ENEMY has appeared!")
@@ -141,11 +160,11 @@ def fightloop():
     else:
         print("\nVICTORY! The enemy has been vanquished!")
 
-        replay
+        replay()
 
 def fight():
+     global elsel, myel, opp, opsel
      print("It's your turn to attack! Choose a move!")
-     global elsel
      elsel = elsel.title()
      if elsel == "Fire":
          
@@ -281,8 +300,7 @@ def fight():
 # Menus
 #----------------------------------------------------------------------------------------------------------------------
 def loading():
-    yn = input("Do you wish to continue? Y/N\n")
-    yn = yn.title()
+    yn = input("Do you wish to continue? Y/N\n").strip().title()
     if yn == "Y" :
         print("LOADING GAME...")
         gameplay()
@@ -294,14 +312,12 @@ def loading():
         loading()
 
 def replay():
-    yn = input("Do you wish to continue? Y/N\n")
-    yn = yn.title()
+    yn = input("Do you wish to continue? Y/N\n").strip().title()
     if yn == "Y" :
         print("LOADING GAME...")
         main()
     elif yn == "N":
         print("THANKS FOR PLAYING :D")
-        main()
     else:
         print("Retry")
         replay()
