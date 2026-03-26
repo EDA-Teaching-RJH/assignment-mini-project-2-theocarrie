@@ -12,7 +12,15 @@ global myel
 
 print("LOADING...")
 print("...")
+
+#----------------------------------------------------------------------------------------------------------------------
+# Global Advantage System
+#----------------------------------------------------------------------------------------------------------------------
 def get_advantage(atta, defe):
+    """
+    Certain elements have an advantage over others, if the matchup happens to contain those elements then one will recieve a 1.5x damage boost.
+    If not then damage stays at 1.0x.
+    """
     if atta.name == "Fire" and defe.name == "Air":
         return 1.5
     if atta.name == "Water" and defe.name == "Fire":
@@ -23,7 +31,15 @@ def get_advantage(atta, defe):
         return 1.5
     return 1
 
+#----------------------------------------------------------------------------------------------------------------------
+# Battle Logger
+#----------------------------------------------------------------------------------------------------------------------
 def battlelog(plaele, eneele, result, turns):
+    """
+    Initially creates file to track battles.
+    Appends the records after every match.
+    Records: timestamp, player element, enemy element, result (win/loss), turns taken.
+    """
     file = "battle_log.csv" 
     file_exists = os.path.isfile(file)
 
@@ -51,7 +67,11 @@ def main():
     elselect() 
     
     
-def elselect():    
+def elselect():   
+    """
+    Asks the player which element they would like to use and then redirects them to the appropriate one.
+    Loops if input is invalid.
+    """ 
     print("Welcome to Elemenbrawl: choose your element: \n")
     global elsel
     
@@ -80,6 +100,7 @@ def elselect():
         elselect()
 
 def water():
+    """Sets element to Water and explains the moveset."""
     global myel
     myel = WaterElement()
     print("Water! Good choice, balanced and life sustaining, sure to wash away the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
@@ -90,6 +111,7 @@ def water():
     loading()
 
 def fire():
+    """Sets element to Fire and explains the moveset."""
     global myel
     myel = FireElement()
     print("Fire! Exellent choice, aggressive ""Scorch 'n burn"" playstyle, sure to incinerate the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
@@ -100,6 +122,7 @@ def fire():
     loading()
 
 def earth():
+    """Sets element to Earth and explains the moveset."""
     global myel
     myel = EarthElement()
     print("Earth! Wise choice, sturdy and immovable, sure to crush the competition to dust! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
@@ -111,6 +134,7 @@ def earth():
 
 
 def air():
+    """Sets element to Air and explains the moveset."""
     global myel
     myel = AirElement()
     print("Air! Exciting choice, fast and agile, sure to fly above the competition! \nTHREE actions have been granted to you which will be availble to use on your turn. \n")
@@ -125,6 +149,7 @@ def air():
 #----------------------------------------------------------------------------------------------------------------------
 
 def gameplay():
+     """Chooses enemy element at random, then initiates the fight loop."""
      global opel, opp
      print("An ENEMY has appeared!")
      opel = random.choice(["Fire", "Water","Air", "Earth"])
@@ -148,6 +173,10 @@ def gameplay():
      fightloop()
     
 def fightloop():
+    """
+    Keeps calling fight() until either the enemy or the player's HP reaches <=0. 
+    Logs turns. 
+    """
     global myel, opp
     turn = 0
     while myel.health > 0 and opp.health > 0:
@@ -164,13 +193,21 @@ def fightloop():
         replay()
 
 def fight():
+     """
+     Initiates one player turn and one enemy turn.
+     Keeps track of status effects.
+     Validates player input.
+     Applies elemental advantage damage multiplier when applicable.
+     """
      global myel, opp
 
      print("It's your turn to attack!") 
 
+     #applies any current effects 
      myel.apply_status()
-     opp.apply_status()
+     opp.apply_status() 
 
+     #only relevant if burn kills target before their next turn, ends round early
      if opp.health <= 0:
          return
 
@@ -236,6 +273,7 @@ def fight():
 # Menus
 #----------------------------------------------------------------------------------------------------------------------
 def loading():
+    """Allows player to return to main menu or continue on to the main battle."""
     yn = input("Do you wish to continue? Y/N\n").strip().title()
     if yn == "Y" :
         print("LOADING GAME...")
@@ -248,6 +286,7 @@ def loading():
         loading()
 
 def replay():
+    """Shown after victory, either continue or return to main menu."""
     yn = input("Do you wish to continue? Y/N\n").strip().title()
     if yn == "Y" :
         print("LOADING GAME...")

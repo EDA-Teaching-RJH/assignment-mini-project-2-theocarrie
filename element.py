@@ -1,12 +1,27 @@
 import random
 class Element:
+    """
+    Base class for all playable elements.
+    Holds shared attributes.
+    All elements inherit from this class.
+    """
     def __init__(self, name: str, health: int):
+        """
+        Initialises name and health at the beginning of the game 
+        health_max ensures the player cannot overheal above max (starting) healthpool.
+        Status includes all applied effects.
+        """
         self.name = name 
         self.health = health
         self.health_max = health
         self.status = []
 
     def take_damage(self, dmg):
+        """
+        Reduces health by the appropriate damage value.
+        Shield blocks half of all damage (1 turn).
+        Dodge evades all damage (1 turn).
+        """
 
         for effect in self.status:
             if effect["type"] == "shield":
@@ -24,11 +39,19 @@ class Element:
             self.health = 0
 
     def heal(self, amount):
+        """
+        Increases health by certian amount.
+        Capped at max_health to prevent overheal
+        """
         self.health += int(amount)
         if self.health > self.health_max:
             self.health = self.health_max
 
     def apply_status(self):
+        """
+        Called at the beginning of each round to count down the turns remaining on effects.
+        When turns left <= 0, removes effect
+        """
         for effect in self.status[:]:
             if effect["type"] == "burn":
                 print(f"{self.name} takes 10 burn damage!")
@@ -42,13 +65,25 @@ class Element:
                 self.status.remove(effect)
 
     def is_stunned(self):
+        """
+        Returns true if player/enemy has active stun effect.
+        Decides whether player/enemy will get a turn or not.
+        """
         return any(effect["type"] == "stun" for effect in self.status)
 
     def is_alive(self):
+        """
+        Returns true if player/enemy has health remaining (is not dead).
+        """
         return self.health > 0
     
 
 class WaterElement(Element):
+    """
+    Water Element 
+    Inherits all base methods from Element 
+    Moves: Splosh, Waterfall, Tsunami
+    """
     def __init__(self):
         super().__init__("Water", 500)
         self.actions = {
@@ -70,6 +105,11 @@ class WaterElement(Element):
 
 
 class AirElement(Element):
+    """
+    Air Element 
+    Inherits all base methods from Element 
+    Moves: Swoosh, Slice, Cyclone
+    """
     def __init__(self):
         super().__init__("Air", 450)
         self.actions = {
@@ -95,6 +135,11 @@ class AirElement(Element):
             self.status.append({"type": "dodge","turns": 1})
 
 class EarthElement(Element):
+    """
+    Earth Element 
+    Inherits all base methods from Element 
+    Moves: Crunch, Meteor, Fortress
+    """
     def __init__(self):
         super().__init__("Earth", 600)
         self.actions = {
@@ -118,6 +163,11 @@ class EarthElement(Element):
                            
 
 class FireElement(Element):
+    """
+    Fire Element 
+    Inherits all base methods from Element 
+    Moves: Scorch, Firewall, Phoenix
+    """
     def __init__(self): 
         super().__init__("Fire", 450)
         self.actions = {
