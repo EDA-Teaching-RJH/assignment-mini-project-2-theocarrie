@@ -96,37 +96,30 @@ def air():
 #----------------------------------------------------------------------------------------------------------------------
 
 def gameplay():
+     global opel, opp
      print("An ENEMY has appeared!")
-     global opel
      opel = random.choice(["Fire", "Water","Air", "Earth"])
      if opel == "Fire":
          
          print("ENEMY element is FIRE, beware")
          opp = FireElement()
-         print(f"ENEMY HP: {opp.health_max}")
-         fight()
      elif opel == "Water":
          
          print("ENEMY element is WATER, beware")
          opp = WaterElement()
-         print(f"ENEMY HP: {opp.health_max}")
-         fight()
      elif opel == "Air":
          
          print("ENEMY element is AIR, beware")
          opp = AirElement()
-         print(f"ENEMY HP: {opp.health_max}")
-         fight()
      elif opel == "Earth":
          
          print("ENEMY element is EARTH, beware")
          opp = EarthElement()
-         print(f"ENEMY HP: {opp.health_max}")
-         fightloop()
+     print(f"ENEMY HP: {opp.health}")
+     fightloop()
     
 def fightloop():
-    global myel
-    global opp
+    global myel, opp
     while myel.health > 0 and opp.health > 0:
         fight()
 
@@ -140,40 +133,7 @@ def fightloop():
 def fight():
      global elsel, myel, opp, opsel
      print("It's your turn to attack! Choose a move!")
-     elsel = elsel.title()
-     if elsel == "Fire":
-         
-         
-      
-         myel = FireElement()
-         print(f"HP:", {myel.health_max})
-        
-     elif elsel == "Water":
-         
-         
-      
-         myel = WaterElement()
-         print(f"HP:", {myel.health_max})
-       
-     elif elsel == "Air":
-         
-     
-         myel = AirElement()
-         print(f"HP:", {myel.health_max})
-        
-         
-     elif elsel == "Earth":
-         
-         myel = EarthElement()
-         print(f"HP:", {myel.health_max})
-        
-         
-    
-     
-     
-     
-    
-     
+     elsel = elsel.title()  
      
     #  if opel == "Fire":
          
