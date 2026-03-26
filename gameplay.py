@@ -2,7 +2,8 @@ from element import FireElement, WaterElement, AirElement, EarthElement
 import random
 import re
 import csv
-
+import os
+from datetime import datetime
 
 
 
@@ -21,6 +22,26 @@ def get_advantage(atta, defe):
     if atta.name == "Air" and defe.name == "Earth":
         return 1.5
     return 1
+
+def battlelog(plaele, eneele, result, turns):
+    file = "battle_log.csv" 
+    file_exists = os.path.isfile(file)
+
+    with open(file, "a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["timestamp", "plaele", "eneele", "result", "turns"])
+        
+        if not file_exists:
+            writer.writeheader()
+        
+        writer.writerow({
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "plaele": plaele,
+            "eneele": eneele,
+            "result": result,
+            "turns": turns
+        })
+    
+    print(f"Battle logged to {file}")
 #----------------------------------------------------------------------------------------------------------------------
 # Element Selection
 #----------------------------------------------------------------------------------------------------------------------
@@ -128,13 +149,17 @@ def gameplay():
     
 def fightloop():
     global myel, opp
+    turn = 0
     while myel.health > 0 and opp.health > 0:
         fight()
+        turn += 1
 
     if myel.health <= 0:
         print("\nYou have been defeated... better luck next time!")
+        battlelog(myel.name, opp.name, "loss", turn)
     else:
         print("\nVICTORY! The enemy has been vanquished!")
+        battlelog(myel.name, opp.name, "loss", turn)
 
         replay()
 
@@ -162,7 +187,7 @@ def fight():
 
         choice = input(">")
 
-        if choice in myel.actions:
+        if re.fullmatch(r'[1-3]', choice) and choice in myel.actions:
             name, dmg, effect = myel.actions[choice]
 
             advantage = get_advantage(myel, opp)
@@ -177,7 +202,7 @@ def fight():
 
             print(f"ENEMY HP: {opp.health}")
         else:
-            print("Invalid action")
+            print("Invalid action, please only enter '1' or '2' or '3'")
 
         if opp.health <= 0:
             return
