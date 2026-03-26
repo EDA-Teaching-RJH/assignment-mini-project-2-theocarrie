@@ -131,106 +131,25 @@ def fightloop():
         replay()
 
 def fight():
-     global elsel, myel, opp, opsel
-     print("It's your turn to attack! Choose a move!")
-     elsel = elsel.title()  
+     global myel, opp
+     print("It's your turn to attack!") 
+
+     myel.apply_status()
+     opp.apply_status()
+
+     if myel.is_stunned():
+        print("You are stunned")
+     else:
+        print(f"YOUR HP: {myel.health}")
+        print(f"ENEMY HP: {opp.health}")
+
+        print("\nChoose a move!")
      
-    #  if opel == "Fire":
-         
-         
-    #      splosh.damage *= 1.5
-    #      waterfall.damage *= 1.5
-    #      tsunami.damage *= 1.5
-    #      opp = oppfire
-        
-    #  elif opel == "Water":
-         
-         
-    #      crunch.damage *= 1.5
-    #      meteor.damage *= 1.5
-    #      fortress.damage *= 1.5
-    #      opp = oppwater
-       
-    #  elif opel == "Air":
-         
-         
-    #      scorch.damage *= 1.5
-    #      firewall.damage *= 1.5
-    #      phoenix.damage *= 1.5
-    #      opp = oppair
-        
-         
-    #  elif opel == "Earth":
-         
-        
-    #      swoosh.damage *= 1.5
-    #      aslice.damage *= 1.5
-    #      cyclone.damage *= 1.5 
-    #      opp = oppearth
-        
-         
-    
+   
      
-     print(f"ENEMY HP:", {opp.health})
      
-     if elsel == "Water":
-        
-        
-        
-         movesel = input(f"1 -- {splosh.name} \n2 -- {waterfall.name} \n3 -- {tsunami.name} \n")
-         if movesel == "1":
-             opp.health -= splosh.damage
-             print(f"ENEMY HP",{opp.health})
-         elif movesel == "2":
-            opp.health -= waterfall.damage
-            print(f"ENEMY HP",{opp.health})
-         elif movesel == "3":
-            opp.health -= tsunami.damage
-            print(f"ENEMY HP",{opp.health})
-
-      
-     elif elsel == "Air":
-         
-         movesel = input(f"1 -- {swoosh.name} \n2 -- {aslice.name} \n3 -- {cyclone.name} \n")
-         if movesel == "1":
-             opp.health -= swoosh.damage
-             print(f"ENEMY HP",{opp.health})
-         elif movesel == "2":
-            opp.health -= aslice.damage
-            print(f"ENEMY HP",{opp.health})
-         elif movesel == "3":
-            opp.health -= cyclone.damage
-            print(f"ENEMY HP",{opp.health})
-
-       
-     elif elsel == "Fire":
-         
-         
-         movesel = input(f"1 -- {scorch.name} \n2 -- {firewall.name} \n3 -- {phoenix.name} \n")
-         if movesel == "1":
-             opp.health -= scorch.damage
-             print(f"ENEMY HP",{opp.health})
-         elif movesel == "2":
-            opp.health -= firewall.damage
-            print(f"ENEMY HP",{opp.health})
-         elif movesel == "3":
-            opp.health -= phoenix.damage
-            print(f"ENEMY HP",{opp.health})
-    
-
-     elif elsel == "Earth":
-         movesel = input(f"1 -- {crunch.name} \n2 -- {meteor.name} \n3 -- {fortress.name} \n")
-         if movesel == "1":
-             opp.health -= crunch.damage
-             print(f"ENEMY HP",{opp.health})
-         elif movesel == "2":
-            opp.health -= meteor.damage
-            print(f"ENEMY HP",{opp.health})
-         elif movesel == "3":
-            opp.health -= fortress.damage
-            print(f"ENEMY HP",{opp.health})
-
-     print(f"YOUR HP:", {myel.health})
+     
+     
 #----------------------------------------------------------------------------------------------------------------------
 # Menus
 #----------------------------------------------------------------------------------------------------------------------
