@@ -58,14 +58,14 @@ class WaterElement(Element):
             
         }
     def splosh(self, enemy):
-        print("Enemy weakened!")
+        print("WET- Enemy weakened!")
 
     def waterfall(self, enemy):
-        print("Enemy takes increased damage next turn!")
+        print("CHURNING RAPIDS- Enemy takes increased damage next turn!")
 
     def tsunami(self, enemy):
         if random.random() < 0.5:
-            print("Enemy stunned!")
+            print("MUD- Enemy stunned!")
             enemy.status.append({"type": "stun", "turns":1})
 
 
@@ -81,7 +81,7 @@ class AirElement(Element):
 
     def swoosh(self, enemy):
         if random.random() < 0.35:
-            print("You will dodge the next attack")
+            print("DODGE- You will dodge the next attack")
             self.status.append({"type": "dodge", "turns": 1})
 
     def slice(self, enemy):
@@ -91,7 +91,7 @@ class AirElement(Element):
 
     def cyclone(self, enemy):
         if random.random() < 0.4:
-            print("Dodge ready!")
+            print("DIVINE WIND- Dodge ready!")
             self.status.append({"type": "dodge","turns": 1})
 
 class EarthElement(Element):
@@ -109,11 +109,11 @@ class EarthElement(Element):
 
     def meteor(self, enemy):
         if random.random() < 0.35:
-            print("ENEMY stunned!")
+            print("EXTINCTION landed!")
             enemy.status.append({"type": "stun","turns": 1})
 
     def fortress(self, enemy):
-        print("MASSIVE SHIELD!")
+        print("LAST STAND!")
         self.status.append({"type": "shield","turns": 2})
                            
 
@@ -128,16 +128,16 @@ class FireElement(Element):
         }
 
     def scorch(self, enemy):
-        print("Burn applied!")
+        print("BURN- Burn applied!")
         enemy.status.append({"type": "burn","turns": 2})
 
     def firewall(self, enemy):
-        print("Damage reduction in effect next turn!")
+        print("COVER FIRE- Damage reduction in effect next turn!")
         self.status.append({"type": "shield","turns": 1})
 
     def phoenix(self, enemy):
         heal_amount = 35
-        print(f"Phoenix heals {heal_amount}!")
+        print(f"PHOENIX- Phoenix heals {heal_amount}!")
         self.heal(heal_amount)
 
                            

@@ -11,7 +11,16 @@ global myel
 
 print("LOADING...")
 print("...")
-
+def get_advantage(atta, defe):
+    if atta.name == "Fire" and defe.name == "Air":
+        return 1.5
+    if atta.name == "Water" and defe.name == "Fire":
+        return 1.5
+    if atta.name == "Earth" and defe.name == "Water":
+        return 1.5
+    if atta.name == "Air" and defe.name == "Earth":
+        return 1.5
+    return 1
 #----------------------------------------------------------------------------------------------------------------------
 # Element Selection
 #----------------------------------------------------------------------------------------------------------------------
@@ -152,10 +161,15 @@ def fight():
 
         if choice in myel.actions:
             name, dmg, effect = myel.actions[choice]
+
+            advantage = get_advantage(myel, opp)
+            ad_dmg = int(dmg * advantage)
+            if advantage > 1:
+                print(f"Elemental advantage! Damage increased to {ad_dmg}")
             
             print(f"\nYou used {name}!")
 
-            opp.take_damage(dmg)
+            opp.take_damage(ad_dmg)
             effect(opp)
 
             print(f"ENEMY HP: {opp.health}")
@@ -174,24 +188,22 @@ def fight():
         
      action = random.choice(list(opp.actions.values()))
      name, dmg, effect = action
+
+     advantage = get_advantage(opp, myel)
+     ad_dmg = int(dmg * advantage)
+     if advantage > 1:
+                print(f"Enemy has elemental advantage! Damage increased to {ad_dmg}")
+            
      
      print(f"Enemy used {name}!")
      
-     myel.take_damage(dmg)
+     myel.take_damage(ad_dmg)
      effect(myel)
      
      
      print(f"YOUR HP: {myel.health}")
         
-
-    
-        
-     
    
-     
-     
-     
-     
 #----------------------------------------------------------------------------------------------------------------------
 # Menus
 #----------------------------------------------------------------------------------------------------------------------
