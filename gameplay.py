@@ -1,9 +1,8 @@
 from element import FireElement, WaterElement, AirElement, EarthElement 
-from action import Action
 import random
 import re
 import csv
-from random import choice 
+
 
 
 
@@ -57,7 +56,7 @@ def water():
     print("Splosh \nDMG: 40\nWET: Target deals -20% DMG next turn\n")
     print("Waterfall \nDMG: 45\nCHURNING RAPIDS: Target takes +20% DMG next turn\n")
     print("Tsunami \nDMG: 55\nMUD: Target 55% Chance to miss next attack\n")
-    print("HP", {myel.health})
+    print("HP", myel.health)
     loading()
 
 def fire():
@@ -67,7 +66,7 @@ def fire():
     print("Scorch \nDMG: 40\nBURN: Target takes 10 DMG for 2 turns \n")
     print("Firewall \nDMG: 20\nCOVERING FIRE: Negates 80% DMG taken next turn \n")
     print("Phoenix \nDMG: 70\nBURN: Heal 50% DMG dealt \n")
-    print("HP", {myel.health})
+    print("HP", myel.health)
     loading()
 
 def earth():
@@ -77,7 +76,7 @@ def earth():
     print("Crunch \nDMG: 50 \n")
     print("Meteor \nDMG: 60\nEXTINCTION: 35% chance to stun target, skipping their turn \n")
     print("Fortress \nDMG: 0\nLAST STAND: Takes 95% reduced DMG for 1 turn and 55% reduced DMG for 1 turn after \n")
-    print("HP", {myel.health})
+    print("HP", myel.health)
     loading()
 
 
@@ -88,7 +87,7 @@ def air():
     print("Swoosh \nDMG: 35\nDODGE: 35% chance to evade next attack \n")
     print("Slice \nDMG: 55\nCRITICAL: 25% chance to do 2X DMG \n")
     print("Cyclone \nDMG: 40\nDIVINE WIND: 40% chance to dodge, 30% chance to do 1.5X DMG \n ")
-    print("HP", {myel.health})
+    print("HP", myel.health)
     loading()
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -132,6 +131,7 @@ def fightloop():
 
 def fight():
      global myel, opp
+
      print("It's your turn to attack!") 
 
      myel.apply_status()
@@ -144,6 +144,48 @@ def fight():
         print(f"ENEMY HP: {opp.health}")
 
         print("\nChoose a move!")
+
+        for key, (name, dmg, _) in myel.actions.items():
+            print(f"{key} -- {name} ({dmg} dmg)")
+
+        choice = input(">")
+
+        if choice in myel.actions:
+            name, dmg, effect = myel.actions[choice]
+            
+            print(f"\nYou used {name}!")
+
+            opp.take_damage(dmg)
+            effect(opp)
+
+            print(f"ENEMY HP: {opp.health}")
+        else:
+            print("Invalid action")
+
+        if opp.health <= 0:
+            return
+        
+
+     print("ENEMY TURN")
+
+     if opp.is_stunned():
+        print("Enemy is stunned!")
+        return
+        
+     action = random.choice(list(opp.actions.values()))
+     name, dmg, effect = action
+     
+     print(f"Enemy used {name}!")
+     
+     myel.take_damage(dmg)
+     effect(myel)
+     
+     
+     print(f"YOUR HP: {myel.health}")
+        
+
+    
+        
      
    
      

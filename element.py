@@ -7,14 +7,26 @@ class Element:
         self.status = []
 
     def take_damage(self, dmg):
+
+        for effect in self.status:
+            if effect["type"] == "shield":
+                print(f"{self.name}'s shield blocks some damage!")
+                dmg *= 0.5
+
+        for effect in self.status:
+            if effect["type"] == "dodge":
+                print(f"{self.name} dodged!")
+                self.status.remove(effect)
+                return
+
         self.health -= int(dmg)
         if self.health < 0:
             self.health = 0
 
     def heal(self, amount):
         self.health += int(amount)
-        if self.health > self.max_health:
-            self.health = self.max_health
+        if self.health > self.health_max:
+            self.health = self.health_max
 
     def apply_status(self):
         for effect in self.status[:]:
@@ -48,12 +60,13 @@ class WaterElement(Element):
     def splosh(self, enemy):
         print("Enemy weakened!")
 
-    def splosh(self, enemy):
+    def waterfall(self, enemy):
         print("Enemy takes increased damage next turn!")
 
-    def splosh(self, enemy):
-        print("Enemy stunned!")
-        enemy.status.append({"type": "stun", "turns":1})
+    def tsunami(self, enemy):
+        if random.random() < 0.5:
+            print("Enemy stunned!")
+            enemy.status.append({"type": "stun", "turns":1})
 
 
 class AirElement(Element):
@@ -62,7 +75,7 @@ class AirElement(Element):
         self.actions = {
             "1": ("Swoosh", 35, self.swoosh),
             "2": ("Slice", 55, self.slice),
-            "3": ("Tsunami", 40, self.cyclone)
+            "3": ("Cyclone", 40, self.cyclone)
 
         }
 
@@ -124,7 +137,7 @@ class FireElement(Element):
 
     def phoenix(self, enemy):
         heal_amount = 35
-        print(f"Phoenix heals you for {heal_amount}!")
+        print(f"Phoenix heals {heal_amount}!")
         self.heal(heal_amount)
 
                            
@@ -135,13 +148,5 @@ class FireElement(Element):
     
 
 
-myelwater = Element(name = "Water", health = 100)
-myelfire = Element(name = "Fire", health = 100)
-myelair = Element(name = "Air", health = 90)
-myelearth = Element(name = "Earth", health = 120)
-oppwater = Element(name = "Water", health = 90)
-oppfire = Element(name = "Fire", health = 90)
-oppair = Element(name = "Air", health = 80)
-oppearth = Element(name = "Earth", health = 110)
 
 
