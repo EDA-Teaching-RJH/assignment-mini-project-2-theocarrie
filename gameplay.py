@@ -58,11 +58,50 @@ def battlelog(plaele, eneele, result, turns):
         })
     
     print(f"Battle logged to {file}")
+
+
+def show_record():
+    """
+    Reads battle_log.csv and prints the player's w/l record.
+    Activates on startup. Skips if no battles have been logged yet.
+    """
+    file = "battle_log.csv"
+
+    if not os.path.isfile(file):
+        print("Play a game to start tracking!")
+        return
+    wins = 0 
+    losses = 0
+    el_wins = {}
+
+    with open(file, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row["result"] == "win":
+                wins += 1
+                element = row["plaele"]
+                el_wins[element] = el_wins.get(element, 0) + 1
+            elif row["result"] == "loss":
+                losses += 1
+
+    total = wins + losses
+    print("\n--- YOUR BATTLE RECORD ---")
+    print(f"Played: {total}  |  Wins: {wins}  |  Losses: {losses}")
+
+    if el_wins:
+        best = max(el_wins, key=el_wins.get)
+        print(f"Best element: {best} ({el_wins[best]} wins)")
+
+    print("--------------------------\n")
+
+
 #----------------------------------------------------------------------------------------------------------------------
 # Element Selection
 #----------------------------------------------------------------------------------------------------------------------
 
 def main():
+
+    show_record()
 
     elselect() 
     
@@ -188,7 +227,7 @@ def fightloop():
         battlelog(myel.name, opp.name, "loss", turn)
     else:
         print("\nVICTORY! The enemy has been vanquished!")
-        battlelog(myel.name, opp.name, "loss", turn)
+        battlelog(myel.name, opp.name, "win", turn)
 
         replay()
 
